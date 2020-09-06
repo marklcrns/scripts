@@ -1,1 +1,1 @@
-# All My Personal Bash Scripts
+# All My Personal Scripts
