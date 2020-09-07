@@ -198,7 +198,7 @@ echolog
 # Confirmation
 if [[ -z "${SKIP_CONFIRM}" ]]; then
   log "Do you wish to continue? (Y/y): \n" 1
-  confirm "Do you wish to continue? (Y/y): "
+  ${SCRIPTDIR}/../../scripting-utils/confirm "Do you wish to continue? (Y/y): "
   if [[ "${?}" -eq 1 ]]; then
     abort "${SCRIPTPATH}: Aborted."
   elif [[ "${?}" -eq 2 ]]; then
