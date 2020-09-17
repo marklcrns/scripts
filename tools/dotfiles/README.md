@@ -12,6 +12,3 @@ Dotfiles manager to automate dotfiles syncing and backing up.
 - `dotclearbak` -- Clean and limit dotfiles backup directory of specified
   amount (deletes oldest backup when above limit).
 
-## TODO
-
-- Remove empty directories when detecting changes and after deletion
