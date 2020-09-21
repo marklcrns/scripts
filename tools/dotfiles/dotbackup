@@ -237,7 +237,7 @@ do
   # Copy dotfile into backup directory if existing
   if [[ -e "${DOTFILES_LOCAL}/${dotfile_stripped}" ]]; then
     if execlog "cp -rL ${DOTFILES_LOCAL}/${dotfile_stripped} ${full_backup_dir}" 1; then
-      ok "${DOTFILES_LOCAL}/${dotfile_stripped} -> ${full_backup_dir}"
+      echolog "${DOTFILES_LOCAL}/${dotfile_stripped} -> ${full_backup_dir}"
     else
       error "Failed to copy ${DOTFILES_LOCAL}/${dotfile_stripped} -> ${full_backup_dir}"
     fi
