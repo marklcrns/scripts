@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Watch $SOURCE_DIR for file creation or files moved into $SOURCE_DIR ending
+# with $FILE_EXT to automatically move all files containing $FILE_EXT into
+# current directory.
+#
+# Additionally, change file permission to chmod 644 after moving.
+
+set -e
+
+SOURCE_DIR=$1
+FILE_EXT=$2
+
+SOURCE_DIR=$(echo "${SOURCE_DIR}" | sed 's,/*$,,')
+
+echo -e "Now watching ${SOURCE_DIR}\nfor ${FILE_EXT} asset files...\n"
+
+if [[ "$(grep -i microsoft /proc/version)" ]]; then
+  # Manual file watching for WSL since `inotifywait` cannot detect Windows 10
+  # file creation
+  while true; do
+    if [[ -n "$(ls ${SOURCE_DIR}/*.${FILE_EXT} 2>/dev/null)" ]]; then
+      echo "Moving" ${SOURCE_DIR}/*.${FILE_EXT} "->" `realpath .`
+      mv ${SOURCE_DIR}/*.${FILE_EXT} . && chmod 644 *.${FILE_EXT}
+    fi
+    sleep 1
+  done
+else
+  # Ref: https://unix.stackexchange.com/a/323919
+  inotifywait -m ${SOURCE_DIR} -e create,moved_to,modify |
+    while read path action file; do
+      if [[ "$file" =~ .*${FILE_EXT}$ ]]; then
+        echo "Moving" ${SOURCE_DIR}/*.${FILE_EXT} "->" `realpath .`
+        mv ${SOURCE_DIR}/*.${FILE_EXT} . && chmod 644 *.${FILE_EXT}
+      fi
+    done
+fi
+
