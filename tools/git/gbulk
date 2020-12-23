@@ -96,7 +96,7 @@ EOF
 }
 
 # Set flag options
-while getopts "Dl:pPqsvVyh" opt; do
+while getopts "Dl:fpPqsvVyh" opt; do
   case "$opt" in
     D) [[ -n "$DEBUG"           ]] && unset DEBUG                      || DEBUG=true;;
     f) [[ -n "$FORCE_REPO"      ]] && unset FORCE_REPO                 || FORCE_REPO=true;;
