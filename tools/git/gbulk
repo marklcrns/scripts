@@ -80,6 +80,7 @@ Git helper tool for bulk git local repository operations.
 
 OPTIONS:
 
+  -c  clean repo before pulling (git clean -ffdx)
   -D  debug mode (redirect output in log file)
   -l  use string list of git repositories delimited by new line
   -f  force git push or pull
@@ -96,8 +97,9 @@ EOF
 }
 
 # Set flag options
-while getopts "Dl:fpPqsvVyh" opt; do
+while getopts "Dl:cfpPqsvVyh" opt; do
   case "$opt" in
+    c) [[ -n "$CLEAN_REPO"      ]] && unset CLEAN_REPO                 || CLEAN_REPO=true;;
     D) [[ -n "$DEBUG"           ]] && unset DEBUG                      || DEBUG=true;;
     f) [[ -n "$FORCE_REPO"      ]] && unset FORCE_REPO                 || FORCE_REPO=true;;
     l) [[ -n "$IS_REPO_LIST"    ]] && unset IS_REPO_LIST               || IS_REPO_LIST=true; REPO_LIST=${OPTARG};;
@@ -263,6 +265,10 @@ pullrepo() {
   changes=$(git status --porcelain --untracked-files=no)
   # Add, commit and push if has changes
   if [[ -n ${changes} ]]; then
+    if [[ -n ${CLEAN_REPO} ]]; then
+      warning "Cleaning ${git_repo}."
+      execlog "git clean -ffdx"
+    fi
     # Force pull repo if FORCE_PULL
     if [[ -n ${FORCE_REPO} ]]; then
       warning "Changes detected in ${git_repo} files. Hard resetting repo..."
