@@ -12,7 +12,7 @@
 # echolog()  = Echo message and log into LOG_FILE_PATH.
 # execlog()  = Execute string command with `eval` and log into LOG_FILE_PATH.
 # ok()       = Echo message in GREEN characters.
-# finish()     = Echo message in GREEN characters and exit with 0 exit code.
+# finish()   = Echo message in GREEN characters and exit with 0 exit code.
 # warning()  = Echo message in YELLOW characters.
 # abort()    = Echo message in YELLOW characters and exit with 0 exit code.
 # error()    = Echo message in RED characters and exit with 1 exit code by
@@ -36,11 +36,12 @@
 # IS_SILENT       = Disables output of all functions.
 # IS_VERY_VERBOSE = Enables output of log() function.
 # SCRIPTPATH      = Script absolute path `realpath -s $0`.
-# RED             = ANSI red color code.
-# GREEN           = ANSI green color code.
-# YELLOW          = ANSI yellow color code.
-# PURPLE          = ANSI purple color code.
-# BO_NC           = ANSI bold color code.
+# FG_RED          = ANSI red color code.
+# FG_GREEN        = ANSI green color code.
+# FG_YELLOW       = ANSI yellow color code.
+# FG_FG_MAGENTA   = ANSI magenta color code.
+# BOLD            = ANSI bold color code.
+# ANSI_OFF        = Unset all ANSI codes.
 #
 ################################################################################
 # Author : Mark Lucernas <https://github.com/marklcrns>
@@ -115,13 +116,13 @@ function execlog() {
     # execute command
     if eval ${command_string}; then
       if [[ -n "${IS_VERY_VERBOSE}" ]] && [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-        echo -e "${PURPLE}Executing '${command_string}'${NC}"
+        echo -e "${FG_MAGENTA}Executing '${command_string}'${ANSI_OFF}"
       fi
       return 0
     else
       # echo if verbose
       if [[ -n "${IS_VERBOSE}" ]] && [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-        echo -e "${RED}${FUNCNAME[0]}(): Command string '${command_string}' failed${NC}"
+        echo -e "${FG_RED}${FUNCNAME[0]}(): Command string '${command_string}' failed${ANSI_OFF}"
       fi
       # Log command_string on debug mode
       if [[ -n "${DEBUG}" ]]; then
@@ -140,7 +141,7 @@ function execlog() {
   else
     # Return error if no command given
     if [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-      echo -e "${RED}${FUNCNAME[0]}(): Command string not found${NC}"
+      echo -e "${FG_RED}${FUNCNAME[0]}(): Command string not found${ANSI_OFF}"
     fi
     if [[ -n "${DEBUG}" ]]; then
       echo -e "${FUNCNAME[0]}: Command string not found" >> "${LOG_FILE_PATH}"
@@ -157,7 +158,7 @@ function ok() {
   force_silent=$2
   if [[ -n "${message}" ]]; then
     [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-      echo -e "${GREEN}${message}${NC}"
+      echo -e "${FG_GREEN}${message}${ANSI_OFF}"
     # Log message on debug mode
     [[ -n "${DEBUG}" ]] && echo -e "${message}" >> "${LOG_FILE_PATH}"
   fi
@@ -171,7 +172,7 @@ function warning() {
   force_silent=$2
   if [[ -n "${message}" ]]; then
     [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-      echo -e "${YELLOW}${message}${NC}"
+      echo -e "${FG_YELLOW}${message}${ANSI_OFF}"
     # Log message on debug mode
     [[ -n "${DEBUG}" ]] && echo -e "${message}" >> "${LOG_FILE_PATH}"
   fi
@@ -185,7 +186,7 @@ function abort() {
   force_silent=$2
   if [[ -n "${message}" ]]; then
     [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-      echo -e "${YELLOW}${message}${NC}"
+      echo -e "${FG_YELLOW}${message}${ANSI_OFF}"
     # Log message on debug mode
     [[ -n "${DEBUG}" ]] && echo -e "${message}" >> "${LOG_FILE_PATH}"
   fi
@@ -203,10 +204,10 @@ function error() {
   if [[ -n "${message}" ]]; then
     if [[ -n ${exit_code} ]]; then # Remove SCRIPTPATH if no exit code
       [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-        echo -e "${RED}\n${SCRIPTPATH}: ${message}${NC}"
+        echo -e "${FG_RED}\n${SCRIPTPATH}: ${message}${ANSI_OFF}"
     else
       [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-        echo -e "${RED}${message}${NC}"
+        echo -e "${FG_RED}${message}${ANSI_OFF}"
     fi
     # Log message on debug mode
     if [[ -n ${exit_code} ]]; then # Remove SCRIPTPATH if no exit code
@@ -229,7 +230,7 @@ function finish() {
   force_silent=$2
   if [[ -n "${message}" ]]; then
     [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]] &&
-      echo -e "${BO_NC}\n${message}${NC}"
+      echo -e "${BOLD}\n${message}${ANSI_OFF}"
     # Log message on debug mode
     [[ -n "${DEBUG}" ]] && echo -e "\n${message}" >> "${LOG_FILE_PATH}"
   fi
@@ -245,16 +246,16 @@ function cleanlog() {
 
   # Check if LOG_FILE_DIR is valid
   if [[ ! -e "${LOG_FILE_DIR}" ]]; then
-    echo -e "${RED}\n${SCRIPTPATH}: LOG_FILE_DIR not specified. Skipping cleaning...${NC}"
+    echo -e "${FG_RED}\n${SCRIPTPATH}: LOG_FILE_DIR not specified. Skipping cleaning...${ANSI_OFF}"
     if [[ -n "${DEBUG}" ]]; then
       echo -e "\n${SCRIPTPATH}: LOG_FILE_DIR not specified. Skipping cleaning..." >> "${LOG_FILE_PATH}"
     fi
     return 1
   fi
   if [[ ! -d "${LOG_FILE_DIR}" ]]; then
-    echo -e "${RED}\n${SCRIPTPATH}: Invalid backup directory path${NC}"
+    echo -e "${FG_RED}\n${SCRIPTPATH}: Invalid backup directory path${ANSI_OFF}"
     if [[ -n "${DEBUG}" ]]; then
-      echo -e "${RED}\n${SCRIPTPATH}: Invalid backup directory path${NC}" >> "${LOG_FILE_PATH}"
+      echo -e "${FG_RED}\n${SCRIPTPATH}: Invalid backup directory path${ANSI_OFF}" >> "${LOG_FILE_PATH}"
     fi
     exit 1
   fi
@@ -324,7 +325,7 @@ function cleanlog() {
   while IFS= read -r log_file; do
     if rm -rf ${LOG_FILE_DIR}/${log_file}; then
       if [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-        echo -e "${YELLOW}${LOG_FILE_DIR}/${log_file} deleted${NC}"
+        echo -e "${FG_YELLOW}${LOG_FILE_DIR}/${log_file} deleted${ANSI_OFF}"
       fi
       if [[ -n "${DEBUG}" ]]; then
         echo -e "${LOG_FILE_DIR}/${log_file} deleted" >> "${LOG_FILE_PATH}"
@@ -333,7 +334,7 @@ function cleanlog() {
       removed_count=$((removed_count+1))
     else
       if [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-        echo -e "${RED}Failed to remove ${LOG_FILE_DIR}/${log_file}${NC}"
+        echo -e "${FG_RED}Failed to remove ${LOG_FILE_DIR}/${log_file}${ANSI_OFF}"
       fi
       if [[ -n "${DEBUG}" ]]; then
         echo -e "Failed to remove ${LOG_FILE_DIR}/${log_file}" >> "${LOG_FILE_PATH}"
@@ -355,7 +356,7 @@ function cleanlog() {
     fi
   else
     if [[ -z "${IS_SILENT}" && -z "${IS_QUITE}" ]] && [[ ${force_silent} -ne 1 ]]; then
-      echo -e "${RED}\n${SCRIPTPATH}: Clearing log files failed${NC}"
+      echo -e "${FG_RED}\n${SCRIPTPATH}: Clearing log files failed${ANSI_OFF}"
     fi
     if [[ -n "${DEBUG}" ]]; then
       echo -e "\n${SCRIPTPATH}: Clearing log files failed"
@@ -425,7 +426,7 @@ function cleanlog() {
 #     V) [[ -n "$IS_VERY_VERBOSE" ]] && unset IS_VERBOSE IS_VERY_VERBOSE || IS_VERBOSE=true; IS_VERY_VERBOSE=true;;
 #     y) [[ -n "$SKIP_CONFIRM"    ]] && unset SKIP_CONFIRM               || SKIP_CONFIRM=true;;
 #     h) usage && exit 0;;
-#     *) usage && echo -e "${SCRIPTPATH}:\n${RED}ERROR: Invalid flag.${NC}"
+#     *) usage && echo -e "${SCRIPTPATH}:\n${FG_RED}ERROR: Invalid flag.${ANSI_OFF}"
 #       exit 1
 #   esac
 # done 2>/dev/null

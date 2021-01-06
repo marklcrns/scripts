@@ -30,6 +30,11 @@
 # Author : Mark Lucernas <https://github.com/marklcrns>
 # Date   : 2020-08-05
 ################################################################################
+# Updates:
+#   2021-01-06 - Added ignore feature with DOTFILES_IGNORE_LIST string array.
+#                Ignored files will not be updated and distributed.
+#
+################################################################################
 
 
 
@@ -39,6 +44,7 @@
 
 # Default script variables
 DOTFILES_LIST=()
+DOTFILES_IGNORE_LIST=()
 DOTFILES_LOCAL="${HOME}"
 DOTFILES_REPO="${HOME}/.dotfiles"
 LOG_FILE_DIR="${HOME}/log"

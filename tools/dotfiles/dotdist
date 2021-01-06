@@ -30,7 +30,11 @@
 # Author : Mark Lucernas <https://github.com/marklcrns>
 # Date   : 2020-08-05
 ################################################################################
-
+# Updates:
+#   2021-01-06 - Added ignore feature with DOTFILES_IGNORE_LIST string array.
+#                Ignored files will not be updated and distributed.
+#
+################################################################################
 
 
 
@@ -39,6 +43,7 @@
 
 # Default script variables
 DOTFILES_LIST=()
+DOTFILES_IGNORE_LIST=()
 DOTFILES_LOCAL="${HOME}"
 DOTFILES_REPO="${HOME}/.dotfiles"
 LOG_FILE_DIR="${HOME}/log"
@@ -186,7 +191,7 @@ echolog "Detecting dotfiles changes..."
 echolog
 for dotfile in ${DOTFILES_LIST[@]}; do
   # Strip source directory from path
-  source_stripped=$(echo "$dotfile" | sed "s,${DOTFILES_LOCAL}/,,")
+  source_stripped=$(echo "${dotfile}" | sed "s,${DOTFILES_LOCAL}/,,")
 
   source_file="${DOTFILES_REPO}/${source_stripped}"
   target_file="${dotfile}"
