@@ -20,7 +20,7 @@ declare -a FILE_EXT=("${@:-*}")
 
 SOURCE_DIR=$(echo "${SOURCE_DIR}" | sed 's,/*$,,')
 
-echo -e "Now watching ${SOURCE_DIR} for ${FILE_EXT[@]} asset files...\n"
+echo -e "Now watching ${SOURCE_DIR} for ${FILE_EXT[@]} asset files..."
 
 if [[ "$(grep -i microsoft /proc/version)" ]]; then
   # Manual file watching for WSL since `inotifywait` cannot detect Windows 10
@@ -28,11 +28,9 @@ if [[ "$(grep -i microsoft /proc/version)" ]]; then
   while true; do
     for file_ext in ${FILE_EXT[@]}; do
       if [[ -n "$(ls ${SOURCE_DIR}/*.${file_ext} 2>/dev/null)" ]]; then
-        echo -e "Moving ${SOURCE_DIR}/*.${file_ext} -> $(realpath .)"
-        mv ${SOURCE_DIR}/*.${file_ext} . && chmod 644 *.${file_ext}
+        mv -v ${SOURCE_DIR}/*.${file_ext} . && chmod 644 *.${file_ext}
       fi
     done
-
     sleep 1
   done
 else
@@ -41,8 +39,7 @@ else
     while read path action file; do
       for file_ext in ${FILE_EXT[@]}; do
         if [[ "${file}" =~ .*${file_ext}$ ]]; then
-          echo -e "Moving ${SOURCE_DIR}/*.${file_ext} -> $(realpath .)/${file}"
-          mv ${file_ext}/*.${file_ext} . && chmod 644 *.${file_ext}
+          mv -v ${file_ext}/*.${file_ext} . && chmod 644 *.${file_ext}
         fi
       done
     done
