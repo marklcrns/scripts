@@ -8,31 +8,43 @@
 
 set -e
 
-SOURCE_DIR=$1
-FILE_EXT=$2
+if [[ -d "${1:-}" ]]; then
+  SOURCE_DIR="${1}"
+  shift 1
+else
+  echo -e "No directory specified"
+  exit 1
+fi
+
+declare -a FILE_EXT=("${@:-*}")
 
 SOURCE_DIR=$(echo "${SOURCE_DIR}" | sed 's,/*$,,')
 
-echo -e "Now watching ${SOURCE_DIR}\nfor ${FILE_EXT} asset files...\n"
+echo -e "Now watching ${SOURCE_DIR} for ${FILE_EXT[@]} asset files...\n"
 
 if [[ "$(grep -i microsoft /proc/version)" ]]; then
   # Manual file watching for WSL since `inotifywait` cannot detect Windows 10
   # file creation
   while true; do
-    if [[ -n "$(ls ${SOURCE_DIR}/*.${FILE_EXT} 2>/dev/null)" ]]; then
-      echo "Moving" ${SOURCE_DIR}/*.${FILE_EXT} "->" `realpath .`
-      mv ${SOURCE_DIR}/*.${FILE_EXT} . && chmod 644 *.${FILE_EXT}
-    fi
+    for file_ext in ${FILE_EXT[@]}; do
+      if [[ -n "$(ls ${SOURCE_DIR}/*.${file_ext} 2>/dev/null)" ]]; then
+        echo -e "Moving ${SOURCE_DIR}/*.${file_ext} -> $(realpath .)"
+        mv ${SOURCE_DIR}/*.${file_ext} . && chmod 644 *.${file_ext}
+      fi
+    done
+
     sleep 1
   done
 else
   # Ref: https://unix.stackexchange.com/a/323919
   inotifywait -m ${SOURCE_DIR} -e create,moved_to,modify |
     while read path action file; do
-      if [[ "$file" =~ .*${FILE_EXT}$ ]]; then
-        echo "Moving" ${SOURCE_DIR}/*.${FILE_EXT} "->" `realpath .`
-        mv ${SOURCE_DIR}/*.${FILE_EXT} . && chmod 644 *.${FILE_EXT}
-      fi
+      for file_ext in ${FILE_EXT[@]}; do
+        if [[ "${file}" =~ .*${file_ext}$ ]]; then
+          echo -e "Moving ${SOURCE_DIR}/*.${file_ext} -> $(realpath .)/${file}"
+          mv ${file_ext}/*.${file_ext} . && chmod 644 *.${file_ext}
+        fi
+      done
     done
 fi
 
