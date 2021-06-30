@@ -155,9 +155,9 @@ detect_change() {
     # Compare dotfiles in target dir with local copy in source dir
     if cmp -s "${__source}" "${__target}" &> /dev/null; then
       if [[ ${silent} -ne 1 ]]; then
-        echolog "No Changes detected in ${__source}"
+        echolog "No changes detected in ${__source}"
       else
-        log "No Changes detected in ${__source}"
+        log "No changes detected in ${__source}"
       fi
     else
       if [[ -e "${__target}" ]]; then
