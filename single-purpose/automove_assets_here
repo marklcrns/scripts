@@ -31,7 +31,7 @@ while true; do
       while IFS= read -r -d '' file; do
         target="${TARGET_DIR}/$(basename -- "${file}")"
         if [[ -e "${target}" ]]; then
-          mv -v "${target}" "${target}.bak"
+          mv -v --backup=numbered "${target}" "${target}.bak"
         fi
         mv -v "${file}" "${target}" && chmod 644 "${target}"
       done
