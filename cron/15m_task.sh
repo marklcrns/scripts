@@ -8,7 +8,7 @@
 PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
 export PATH
 
-if command -v task &> /dev/null && command -v trellowarrior &> /dev/null; then
+if command -v task && command -v trellowarrior; then
   trellowarrior sync
   task sync
 fi
