@@ -9,3 +9,5 @@ dotfiles script package
 - [ ] Improve performance
 - [ ] Remove empty directories when detecting changes and after deletion
 - [ ] Add cronjobs backup support https://tecadmin.net/backup-crontabs-for-users-in-linux/
+- [ ] Add option to only backup certain file owner
+  - [ ] Bypass files requiring sudo privileges
