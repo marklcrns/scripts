@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# Run all 15 minute interval scripts
-
-SCRIPTDIR="${BASH_SOURCE%/*}"
-
-for script in $SCRIPTDIR/15m_*.sh; do
-  $script
-done

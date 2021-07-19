@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Run all 30 minute interval scripts
+
+SCRIPTDIR="${BASH_SOURCE%/*}"
+INTERVAL=30m
+
+for script in ${SCRIPTDIR}/${INTERVAL}_*.sh; do
+  $script
+done
