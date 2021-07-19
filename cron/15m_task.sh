@@ -8,7 +8,10 @@
 PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
 export PATH
 
-if command -v task && command -v trellowarrior; then
-  trellowarrior sync
-  task sync
+LOCK="/tmp/task_sync.lock"
+
+if command -v task && command -v trellowarrior && test ! -e $LOCK; then
+  touch $LOCK
+  trellowarrior sync && task sync
+  rm $LOCK
 fi
