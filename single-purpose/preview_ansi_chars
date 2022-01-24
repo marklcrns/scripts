@@ -1,0 +1,418 @@
+#!/usr/bin/bash
+
+# Pangram Alternatives:
+# Waltz, bad nymph, for quick jigs vex. (28 letters)
+# Glib jocks quiz nymph to vex dwarf. (28 letters)
+# Sphinx of black quartz, judge my vow. (29 letters)
+# How vexingly quick daft zebras jump! (30 letters)
+# The five boxing wizards jump quickly. (31 letters)
+# Jackdaws love my big sphinx of quartz. (31 letters)
+# Pack my box with five dozen liquor jugs. (32 letters)
+PANGRAM="The quick brown fox jumps over the lazy dog"
+ALL_CHARS="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789.:,;(*!?'/\\\")$%^&+@"
+
+PANGRAM_SEP="----------------------------------------------------------"
+ALL_CHARS_SEP="--------------------------------------------------------------------------------------------------"
+
+COLOR_ANSI_CODE_PREFIX='\033'
+NC="${COLOR_ANSI_CODE_PREFIX}[0m"
+
+BOLD="${COLOR_ANSI_CODE_PREFIX}[1m"
+ITALIC="${COLOR_ANSI_CODE_PREFIX}[3m"
+UNDERLINE="${COLOR_ANSI_CODE_PREFIX}[4m"
+STRIKETHROUGH="${COLOR_ANSI_CODE_PREFIX}[9m"
+
+# Regular
+COLOR_BLACK="${COLOR_ANSI_CODE_PREFIX}[30m"
+COLOR_RED="${COLOR_ANSI_CODE_PREFIX}[31m"
+COLOR_GREEN="${COLOR_ANSI_CODE_PREFIX}[32m"
+COLOR_YELLOW="${COLOR_ANSI_CODE_PREFIX}[33m"
+COLOR_BLUE="${COLOR_ANSI_CODE_PREFIX}[34m"
+COLOR_PURPLE="${COLOR_ANSI_CODE_PREFIX}[35m"
+COLOR_CYAN="${COLOR_ANSI_CODE_PREFIX}[36m"
+COLOR_WHITE="${COLOR_ANSI_CODE_PREFIX}[37m"
+
+# High Intensity
+COLOR_HI_BLACK="${COLOR_ANSI_CODE_PREFIX}[0;90m" # Also gray
+COLOR_HI_RED="${COLOR_ANSI_CODE_PREFIX}[0;91m"
+COLOR_HI_GREEN="${COLOR_ANSI_CODE_PREFIX}[0;92m"
+COLOR_HI_YELLOW="${COLOR_ANSI_CODE_PREFIX}[0;93m"
+COLOR_HI_BLUE="${COLOR_ANSI_CODE_PREFIX}[0;94m"
+COLOR_HI_PURPLE="${COLOR_ANSI_CODE_PREFIX}[0;95m"
+COLOR_HI_CYAN="${COLOR_ANSI_CODE_PREFIX}[0;96m"
+COLOR_HI_WHITE="${COLOR_ANSI_CODE_PREFIX}[0;97m"
+# Background
+COLOR_BG_BLACK="${COLOR_ANSI_CODE_PREFIX}[40m"
+COLOR_BG_RED="${COLOR_ANSI_CODE_PREFIX}[41m"
+COLOR_BG_GREEN="${COLOR_ANSI_CODE_PREFIX}[42m"
+COLOR_BG_YELLOW="${COLOR_ANSI_CODE_PREFIX}[43m"
+COLOR_BG_BLUE="${COLOR_ANSI_CODE_PREFIX}[44m"
+COLOR_BG_PURPLE="${COLOR_ANSI_CODE_PREFIX}[45m"
+COLOR_BG_CYAN="${COLOR_ANSI_CODE_PREFIX}[46m"
+COLOR_BG_WHITE="${COLOR_ANSI_CODE_PREFIX}[47m"
+COLOR_BG_EXPAND="${COLOR_ANSI_CODE_PREFIX}[K"
+
+echo -e "Regular:       ${COLOR_RED}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_RED}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_RED}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_RED}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_RED}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_RED}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_GREEN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_GREEN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_GREEN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_GREEN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_GREEN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_GREEN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BLUE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BLUE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BLUE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BLUE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BLUE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BLUE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_PURPLE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_PURPLE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_PURPLE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_PURPLE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_PURPLE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_PURPLE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_YELLOW}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_YELLOW}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_YELLOW}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_YELLOW}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_YELLOW}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_YELLOW}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_CYAN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_CYAN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_CYAN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_CYAN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_CYAN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_CYAN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BLACK}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BLACK}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BLACK}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BLACK}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BLACK}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BLACK}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_WHITE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_WHITE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_WHITE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_WHITE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_WHITE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_WHITE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo ${PANGRAM_SEP}
+
+echo -e "Regular:       ${COLOR_HI_RED}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_RED}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_RED}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_RED}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_RED}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_RED}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_GREEN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_GREEN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_GREEN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_GREEN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_GREEN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_GREEN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_BLUE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_BLUE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_BLUE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_BLUE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_BLUE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_BLUE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_PURPLE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_PURPLE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_PURPLE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_PURPLE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_PURPLE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_PURPLE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_YELLOW}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_YELLOW}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_YELLOW}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_YELLOW}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_YELLOW}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_YELLOW}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_CYAN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_CYAN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_CYAN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_CYAN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_CYAN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_CYAN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_BLACK}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_BLACK}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_BLACK}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_BLACK}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_BLACK}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_BLACK}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_WHITE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_HI_WHITE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_HI_WHITE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_WHITE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_HI_WHITE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_WHITE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo ${PANGRAM_SEP}
+
+echo -e "Regular:       ${COLOR_BG_RED}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_RED}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_RED}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_RED}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_RED}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_RED}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_GREEN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_GREEN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_GREEN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_GREEN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_GREEN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_GREEN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_BLUE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_BLUE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_BLUE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_BLUE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_BLUE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_BLUE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_PURPLE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_PURPLE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_PURPLE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_PURPLE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_PURPLE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_PURPLE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_YELLOW}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_YELLOW}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_YELLOW}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_YELLOW}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_YELLOW}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_YELLOW}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_CYAN}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_CYAN}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_CYAN}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_CYAN}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_CYAN}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_CYAN}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_BLACK}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_BLACK}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_BLACK}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_BLACK}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_BLACK}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_BLACK}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_WHITE}${PANGRAM}${NC}"
+echo -e "Bold:          ${COLOR_BG_WHITE}${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${COLOR_BG_WHITE}${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_WHITE}${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${COLOR_BG_WHITE}${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_WHITE}${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo ${PANGRAM_SEP}
+
+echo -e "Regular:       ${PANGRAM}${NC}"
+echo -e "Bold:          ${BOLD}${PANGRAM}${NC}"
+echo -e "Italic:        ${ITALIC}${PANGRAM}${NC}"
+echo -e "Bold-italic:   ${BOLD}${ITALIC}${PANGRAM}${NC}"
+echo -e "Underline:     ${UNDERLINE}${PANGRAM}${NC}"
+echo -e "Strikethrough: ${STRIKETHROUGH}${PANGRAM}${NC}"
+
+echo ${ALL_CHARS_SEP}
+
+echo -e "Regular:       ${COLOR_RED}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_RED}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_RED}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_RED}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_RED}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_RED}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_GREEN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_GREEN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_GREEN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_GREEN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_GREEN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_GREEN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BLUE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BLUE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BLUE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BLUE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BLUE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BLUE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_PURPLE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_PURPLE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_PURPLE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_PURPLE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_PURPLE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_PURPLE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_YELLOW}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_YELLOW}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_YELLOW}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_YELLOW}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_YELLOW}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_YELLOW}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_CYAN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_CYAN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_CYAN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_CYAN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_CYAN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_CYAN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BLACK}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BLACK}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BLACK}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BLACK}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BLACK}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BLACK}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_WHITE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_WHITE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_WHITE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_WHITE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_WHITE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_WHITE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo ${ALL_CHARS_SEP}
+
+echo -e "Regular:       ${COLOR_HI_RED}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_RED}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_RED}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_RED}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_RED}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_RED}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_GREEN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_GREEN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_GREEN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_GREEN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_GREEN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_GREEN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_BLUE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_BLUE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_BLUE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_BLUE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_BLUE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_BLUE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_PURPLE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_PURPLE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_PURPLE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_PURPLE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_PURPLE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_PURPLE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_YELLOW}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_YELLOW}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_YELLOW}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_YELLOW}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_YELLOW}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_YELLOW}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_CYAN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_CYAN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_CYAN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_CYAN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_CYAN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_CYAN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_BLACK}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_BLACK}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_BLACK}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_BLACK}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_BLACK}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_BLACK}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_HI_WHITE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_HI_WHITE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_HI_WHITE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_HI_WHITE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_HI_WHITE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_HI_WHITE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo ${ALL_CHARS_SEP}
+
+echo -e "Regular:       ${COLOR_BG_RED}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_RED}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_RED}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_RED}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_RED}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_RED}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_GREEN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_GREEN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_GREEN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_GREEN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_GREEN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_GREEN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_BLUE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_BLUE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_BLUE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_BLUE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_BLUE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_BLUE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_PURPLE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_PURPLE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_PURPLE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_PURPLE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_PURPLE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_PURPLE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_YELLOW}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_YELLOW}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_YELLOW}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_YELLOW}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_YELLOW}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_YELLOW}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_CYAN}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_CYAN}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_CYAN}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_CYAN}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_CYAN}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_CYAN}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_BLACK}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_BLACK}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_BLACK}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_BLACK}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_BLACK}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_BLACK}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo -e "Regular:       ${COLOR_BG_WHITE}${ALL_CHARS}${NC}"
+echo -e "Bold:          ${COLOR_BG_WHITE}${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${COLOR_BG_WHITE}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${COLOR_BG_WHITE}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${COLOR_BG_WHITE}${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${COLOR_BG_WHITE}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
+echo ${ALL_CHARS_SEP}
+
+echo -e "Regular:       ${ALL_CHARS}${NC}"
+echo -e "Bold:          ${BOLD}${ALL_CHARS}${NC}"
+echo -e "Italic:        ${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Bold-italic:   ${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+echo -e "Underline:     ${UNDERLINE}${ALL_CHARS}${NC}"
+echo -e "Strikethrough: ${STRIKETHROUGH}${ALL_CHARS}${NC}"
+
