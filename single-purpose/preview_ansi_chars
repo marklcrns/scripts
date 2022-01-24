@@ -9,7 +9,7 @@
 # Jackdaws love my big sphinx of quartz. (31 letters)
 # Pack my box with five dozen liquor jugs. (32 letters)
 PANGRAM="The quick brown fox jumps over the lazy dog"
-ALL_CHARS="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789.:,;(*!?'/\\\")$%^&+@"
+ALL_CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789.:,;(*!?'/\\\")$%^&+@"
 
 PANGRAM_SEP="----------------------------------------------------------"
 ALL_CHARS_SEP="--------------------------------------------------------------------------------------------------"
