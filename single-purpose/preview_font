@@ -1,0 +1,98 @@
+#!/usr/bin/bash
+
+# Pangram Alternatives:
+# Waltz, bad nymph, for quick jigs vex. (28 letters)
+# Glib jocks quiz nymph to vex dwarf. (28 letters)
+# Sphinx of black quartz, judge my vow. (29 letters)
+# How vexingly quick daft zebras jump! (30 letters)
+# The five boxing wizards jump quickly. (31 letters)
+# Jackdaws love my big sphinx of quartz. (31 letters)
+# Pack my box with five dozen liquor jugs. (32 letters)
+PANGRAM="The quick brown fox jumps over the lazy dog"
+ALL_CHARS="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789.:,;[{(*!?'/\\\")}]$%^&+@"
+SEP="------------------------------------------------------------------------------------------------------"
+
+COLOR_ANSI_CODE_PREFIX='\033'
+
+NC="${COLOR_ANSI_CODE_PREFIX}[0m"
+BOLD="${COLOR_ANSI_CODE_PREFIX}[1m"
+ITALIC="${COLOR_ANSI_CODE_PREFIX}[3m"
+UNDERLINE="${COLOR_ANSI_CODE_PREFIX}[4m"
+STRIKETHROUGH="${COLOR_ANSI_CODE_PREFIX}[9m"
+
+# Regular
+COLOR_BLACK="${COLOR_ANSI_CODE_PREFIX}[30m"
+COLOR_RED="${COLOR_ANSI_CODE_PREFIX}[31m"
+COLOR_GREEN="${COLOR_ANSI_CODE_PREFIX}[32m"
+COLOR_YELLOW="${COLOR_ANSI_CODE_PREFIX}[33m"
+COLOR_BLUE="${COLOR_ANSI_CODE_PREFIX}[34m"
+COLOR_PURPLE="${COLOR_ANSI_CODE_PREFIX}[35m"
+COLOR_CYAN="${COLOR_ANSI_CODE_PREFIX}[36m"
+COLOR_WHITE="${COLOR_ANSI_CODE_PREFIX}[37m"
+
+# High Intensity
+COLOR_HI_BLACK="${COLOR_ANSI_CODE_PREFIX}[0;90m" # Also gray
+COLOR_HI_RED="${COLOR_ANSI_CODE_PREFIX}[0;91m"
+COLOR_HI_GREEN="${COLOR_ANSI_CODE_PREFIX}[0;92m"
+COLOR_HI_YELLOW="${COLOR_ANSI_CODE_PREFIX}[0;93m"
+COLOR_HI_BLUE="${COLOR_ANSI_CODE_PREFIX}[0;94m"
+COLOR_HI_PURPLE="${COLOR_ANSI_CODE_PREFIX}[0;95m"
+COLOR_HI_CYAN="${COLOR_ANSI_CODE_PREFIX}[0;96m"
+COLOR_HI_WHITE="${COLOR_ANSI_CODE_PREFIX}[0;97m"
+# Background
+COLOR_BG_BLACK="${COLOR_ANSI_CODE_PREFIX}[40m"
+COLOR_BG_RED="${COLOR_ANSI_CODE_PREFIX}[41m"
+COLOR_BG_GREEN="${COLOR_ANSI_CODE_PREFIX}[42m"
+COLOR_BG_YELLOW="${COLOR_ANSI_CODE_PREFIX}[43m"
+COLOR_BG_BLUE="${COLOR_ANSI_CODE_PREFIX}[44m"
+COLOR_BG_PURPLE="${COLOR_ANSI_CODE_PREFIX}[45m"
+COLOR_BG_CYAN="${COLOR_ANSI_CODE_PREFIX}[46m"
+COLOR_BG_WHITE="${COLOR_ANSI_CODE_PREFIX}[47m"
+
+declare -a colors=(
+  "${COLOR_BG_WHITE}"
+  "${COLOR_BG_CYAN}"
+  "${COLOR_BG_PURPLE}"
+  "${COLOR_BG_BLUE}"
+  "${COLOR_BG_YELLOW}"
+  "${COLOR_BG_GREEN}"
+  "${COLOR_BG_RED}"
+  "${COLOR_BG_BLACK}"
+  "${COLOR_HI_WHITE}"
+  "${COLOR_HI_CYAN}"
+  "${COLOR_HI_PURPLE}"
+  "${COLOR_HI_BLUE}"
+  "${COLOR_HI_YELLOW}"
+  "${COLOR_HI_GREEN}"
+  "${COLOR_HI_RED}"
+  "${COLOR_HI_BLACK}"
+  "${COLOR_WHITE}"
+  "${COLOR_CYAN}"
+  "${COLOR_PURPLE}"
+  "${COLOR_BLUE}"
+  "${COLOR_YELLOW}"
+  "${COLOR_GREEN}"
+  "${COLOR_RED}"
+  "${COLOR_BLACK}"
+  "${NC}"
+)
+
+for color in ${colors[@]}; do
+  echo -e "Regular:       ${color}${PANGRAM}${NC}"
+  echo -e "Bold:          ${color}${BOLD}${PANGRAM}${NC}"
+  echo -e "Italic:        ${color}${ITALIC}${PANGRAM}${NC}"
+  echo -e "Bold-italic:   ${color}${BOLD}${ITALIC}${PANGRAM}${NC}"
+  echo -e "Underline:     ${color}${UNDERLINE}${PANGRAM}${NC}"
+  echo -e "Strikethrough: ${color}${STRIKETHROUGH}${PANGRAM}${NC}"
+done
+
+echo ${SEP}
+
+for color in ${colors[@]}; do
+  echo -e "Regular:       ${color}${ALL_CHARS}${NC}"
+  echo -e "Bold:          ${color}${BOLD}${ALL_CHARS}${NC}"
+  echo -e "Italic:        ${color}${ITALIC}${ALL_CHARS}${NC}"
+  echo -e "Bold-italic:   ${color}${BOLD}${ITALIC}${ALL_CHARS}${NC}"
+  echo -e "Underline:     ${color}${UNDERLINE}${ALL_CHARS}${NC}"
+  echo -e "Strikethrough: ${color}${STRIKETHROUGH}${ALL_CHARS}${NC}"
+done
