@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+DRIVE_LETTER="${1}"
+DRIVE="/mnt/${DRIVE_LETTER}"
+
+[[ -z "${DRIVE_LETTER}" ]] && echo "No drive to mount" && exit 1
+
+[[ ! -d "${DRIVE}" ]] && sudo mkdir "${DRIVE}"
+
+if ! sudo mount -t drvfs ${DRIVE_LETTER}: "${DRIVE}"; then
+  sudo rmdir "${DRIVE}"
+  exit 1
+fi
+

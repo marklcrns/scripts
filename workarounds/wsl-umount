@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DRIVE_LETTER="${1}"
+DRIVE="/mnt/${DRIVE_LETTER}"
+
+[[ -z "${DRIVE_LETTER}" ]] && echo "No drive to unmount" && exit 1
+
+if sudo umount "/mnt/${DRIVE_LETTER}"; then
+  [[ -d "${DRIVE}" ]] && sudo rmdir "${DRIVE}"
+fi
