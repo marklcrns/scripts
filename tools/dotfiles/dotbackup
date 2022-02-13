@@ -213,7 +213,7 @@ echolog "Backing up local dotfiles..."
 echolog
 
 # Create backup directory
-execlog "mkdir -p ${DOTFILES_BACKUP_DIR}/${BACKUP_DIR_NAME}" 1
+execlog "mkdir -p '${DOTFILES_BACKUP_DIR}/${BACKUP_DIR_NAME}'" 1
 
 # Backup all dotfiles
 for dotfile in ${DOTFILES_LIST[@]};
@@ -232,11 +232,11 @@ do
   if [[ -n "${subdir}" ]]; then
     full_backup_dir="${full_backup_dir}/${subdir}"
     # Create subdirectories
-    execlog "mkdir -p ${full_backup_dir}"
+    execlog "mkdir -p '${full_backup_dir}'"
   fi
   # Copy dotfile into backup directory if existing
   if [[ -e "${DOTFILES_LOCAL}/${dotfile_stripped}" ]]; then
-    if execlog "cp -rL ${DOTFILES_LOCAL}/${dotfile_stripped} ${full_backup_dir}" 1; then
+    if execlog "cp -rL '${DOTFILES_LOCAL}/${dotfile_stripped}' '${full_backup_dir}'" 1; then
       echolog "${DOTFILES_LOCAL}/${dotfile_stripped} -> ${full_backup_dir}"
     else
       error "Failed to copy ${DOTFILES_LOCAL}/${dotfile_stripped} -> ${full_backup_dir}"

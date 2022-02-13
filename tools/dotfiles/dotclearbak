@@ -202,7 +202,7 @@ removed_count=0
 
 # Execute backups removal
 while IFS= read -r backup_file; do
-  if execlog "rm -rf ${DOTFILES_BACKUP_DIR}/${backup_file}" 1; then
+  if execlog "rm -rf '${DOTFILES_BACKUP_DIR}/${backup_file}'" 1; then
     warning "${DOTFILES_BACKUP_DIR}/${backup_file} deleted"
     # Increment removed count
     removed_count=$((removed_count+1))
