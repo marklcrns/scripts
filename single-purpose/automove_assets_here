@@ -9,11 +9,11 @@
 set -e
 
 if [[ -d "${1:-}" ]]; then
-  SOURCE_DIR="${1}"
-  shift 1
+	SOURCE_DIR="${1}"
+	shift 1
 else
-  echo -e "No directory specified"
-  exit 1
+	echo -e "No directory specified"
+	exit 1
 fi
 
 declare -a FILE_EXT=("${@:-*}")
@@ -23,18 +23,22 @@ DEPTH=1
 INTERVAL=1
 SOURCE_DIR=$(echo "${SOURCE_DIR}" | sed 's,/*$,,')
 
-echo -e "Now watching ${SOURCE_DIR} for ${FILE_EXT[@]} asset files..."
+echo -e "Now watching ${SOURCE_DIR} for ${FILE_EXT[*]} asset files..."
 
 while true; do
-  for file_ext in ${FILE_EXT[@]}; do
-    find ${SOURCE_DIR} -maxdepth ${DEPTH} -type f -name "*.${file_ext}" -print0 |
-      while IFS= read -r -d '' file; do
-        target="${TARGET_DIR}/$(basename -- "${file}")"
-        if [[ -e "${target}" ]]; then
-          mv -v --backup=numbered "${target}" "${target}.bak"
-        fi
-        mv -v "${file}" "${target}" && chmod 644 "${target}"
-      done
-  done
-  sleep "${INTERVAL}"
+	for file_ext in "${FILE_EXT[@]}"; do
+		find "${SOURCE_DIR}" -maxdepth ${DEPTH} -type f -name "*.${file_ext}" -print0 |
+			while IFS= read -r -d '' file; do
+				# Wait for file to be fully written before moving
+				while [[ -f "${file}" && ! -s "${file}" ]]; do
+					sleep 1
+				done
+				target="${TARGET_DIR}/$(basename -- "${file}")"
+				if [[ -e "${target}" ]]; then
+					mv -v --backup=numbered "${target}" "${target}.bak"
+				fi
+				mv -v "${file}" "${target}" && chmod 644 "${target}"
+			done
+	done
+	sleep "${INTERVAL}"
 done
