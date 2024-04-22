@@ -8,6 +8,21 @@
 
 set -e
 
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+	echo -e "Usage: $(basename -- "${0}") <source_dir> [file_ext(s)...]"
+	echo -e "  source_dir: Directory to watch for file creation or files moved into"
+	echo -e "  file_ext: File extension to watch for (default: *)"
+	echo -e ""
+	echo -e "Example: $(basename -- "${0}") \$HOME/Documents/ jpg png pdf"
+	echo -e ""
+	echo -e "Flags:"
+	echo -e "  -h, --help: Show this help message"
+	exit 0
+fi
+
+[[ -z "${1:-}" ]] && echo -e "No directory specified" && exit 1
+[[ -z "${2:-}" ]] && echo -e "No file extension specified" && exit 1
+
 if [[ -d "${1:-}" ]]; then
 	SOURCE_DIR="${1}"
 	shift 1
